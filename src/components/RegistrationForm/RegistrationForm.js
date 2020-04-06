@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { authOperations } from '../../redux/auth';
 import styles from './RegistrationForm.module.css';
 
 class RegistrationForm extends Component {
   state = {
-    login: '',
+    name: '',
     email: '',
     password: '',
   };
@@ -12,10 +14,26 @@ class RegistrationForm extends Component {
     this.setState({ [name]: value });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.onRegister(this.state);
+    this.setState({ name: '', email: '', password: '' });
+  };
+
   render() {
-    const { email, login, password } = this.state;
+    const { email, name, password } = this.state;
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
+        <label className={styles.LabelInput}>
+          Enter user login:
+          <input
+            className={styles.LabelInput}
+            placeholder="login..."
+            value={name}
+            name="name"
+            onChange={this.handleChangeInputValue}
+          ></input>
+        </label>
         <label className={styles.LabelInput}>
           Enter user E-mail:
           <input
@@ -23,16 +41,6 @@ class RegistrationForm extends Component {
             placeholder="E-mail..."
             value={email}
             name="email"
-            onChange={this.handleChangeInputValue}
-          ></input>
-        </label>
-        <label className={styles.LabelInput}>
-          Enter user login:
-          <input
-            className={styles.LabelInput}
-            placeholder="login..."
-            value={login}
-            name="login"
             onChange={this.handleChangeInputValue}
           ></input>
         </label>
@@ -53,4 +61,6 @@ class RegistrationForm extends Component {
   }
 }
 
-export default RegistrationForm;
+export default connect(null, { onRegister: authOperations.registration })(
+  RegistrationForm,
+);

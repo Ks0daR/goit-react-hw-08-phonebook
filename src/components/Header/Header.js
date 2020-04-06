@@ -31,7 +31,7 @@ const Header = ({ theme, onToggle }) => (
         <NavLink className={styles.NaviLink} to="/register">
           Sing up
         </NavLink>
-        <NavLink className={styles.NaviLink} to="/logIn">
+        <NavLink className={styles.NaviLink} to="/login">
           log in
         </NavLink>
       </div>

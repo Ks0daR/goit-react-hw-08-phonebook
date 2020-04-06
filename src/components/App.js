@@ -7,6 +7,7 @@ import { getLoader, getError } from '../redux/phoneBook/phoneBookSelectors';
 import { fetchContacts } from '../redux/phoneBook/phoneBookOperations';
 import PhoneBookPage from '../pages/PhoneBookPage';
 import RegistrationPage from '../pages/RegistrationPage';
+import LogInPage from '../pages/LogInPage';
 
 class App extends Component {
   componentDidMount() {
@@ -20,6 +21,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={PhoneBookPage} />
           <Route exact path="/register" component={RegistrationPage} />
+          <Route exact path="/login" component={LogInPage} />
           <Redirect to="/" />
         </Switch>
       </Layout>
