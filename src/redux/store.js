@@ -2,13 +2,21 @@ import { configureStore } from '@reduxjs/toolkit';
 import themeReducer from './theme/themeReduser';
 import phoneBookReducer from './phoneBook/phoneBookReducer';
 import { authReducers } from './auth';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-const store = configureStore({
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
+
+export const store = configureStore({
   reducer: {
     theme: themeReducer,
     contacts: phoneBookReducer,
-    auth: authReducers,
+    auth: persistReducer(authPersistConfig, authReducers),
   },
 });
 
-export default store;
+export const persistor = persistStore(store);

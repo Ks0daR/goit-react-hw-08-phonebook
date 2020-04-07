@@ -5,13 +5,15 @@ import Loader from './Loader';
 import { connect } from 'react-redux';
 import { getLoader, getError } from '../redux/phoneBook/phoneBookSelectors';
 import { fetchContacts } from '../redux/phoneBook/phoneBookOperations';
+import { authOperations } from '../redux/auth';
 import PhoneBookPage from '../pages/PhoneBookPage';
 import RegistrationPage from '../pages/RegistrationPage';
 import LogInPage from '../pages/LogInPage';
 
 class App extends Component {
   componentDidMount() {
-    this.props.getContacts();
+    // this.props.getContacts();
+    this.props.getCurrentUser();
   }
   render() {
     const errorMessage = Object.keys(this.props.error).length;
@@ -36,5 +38,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getContacts: fetchContacts,
+  getCurrentUser: authOperations.currentUser,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,4 +1,5 @@
 import React from 'react';
+import UserMenu from '../UserMenu';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toggleTheme } from '../../redux/theme/themeActions';
@@ -36,6 +37,7 @@ const Header = ({ theme, onToggle }) => (
         </NavLink>
       </div>
     </div>
+    <UserMenu />
     <div>
       <button
         className={theme ? styles.Button : styles.ButtonDark}
