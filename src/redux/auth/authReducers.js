@@ -4,7 +4,7 @@ import authActions from './authActions';
 
 const userAcount = { name: '', email: '' };
 
-const user = createReducer(null, {
+const user = createReducer(userAcount, {
   [authActions.registrationSuccess]: (state, { payload }) => payload.user,
   [authActions.logInSuccess]: (state, { payload }) => payload.user,
   [authActions.logOutSuccess]: (state, { payload }) => userAcount,

@@ -4,12 +4,13 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toggleTheme } from '../../redux/theme/themeActions';
 import { getTheme } from '../../redux/theme/themeSelectors';
+import { authSelectors } from '../../redux/auth';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import styles from './Header.module.css';
 import animateStyles from './animateStyles.module.css';
 
-const Header = ({ theme, onToggle }) => (
+const Header = ({ theme, onToggle, isAutorisated }) => (
   <>
     <div className={styles.Header}>
       <div>
@@ -37,7 +38,7 @@ const Header = ({ theme, onToggle }) => (
         </NavLink>
       </div>
     </div>
-    <UserMenu />
+    {isAutorisated && <UserMenu />}
     <div>
       <button
         className={theme ? styles.Button : styles.ButtonDark}
@@ -58,7 +59,10 @@ Header.propTypes = {
   onToggle: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({ theme: getTheme(state) });
+const mapStateToProps = state => ({
+  theme: getTheme(state),
+  isAutorisated: authSelectors.getAutorisate(state),
+});
 
 const mapDispatchToProps = {
   onToggle: toggleTheme,
