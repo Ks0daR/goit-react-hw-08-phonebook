@@ -7,7 +7,8 @@ const PrivateRoute = ({
   component: Component,
   isAutentificated,
   ...routeProps
-}) => (isAutentificated ? <Component {...routeProps} /> : <Redirect to="/" />);
+}) =>
+  isAutentificated ? <Component {...routeProps} /> : <Redirect to="/login" />;
 
 const mapStateToProps = state => ({
   isAutentificated: authSelectors.getAutorisate(state),

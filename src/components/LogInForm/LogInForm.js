@@ -47,10 +47,6 @@ class LogInForm extends Component {
           </label>
           <button type="submit">Log In</button>
         </form>
-
-        <button type="submit" onClick={this.props.onLogOut}>
-          Log In
-        </button>
       </>
     );
   }
@@ -58,5 +54,4 @@ class LogInForm extends Component {
 
 export default connect(null, {
   onLogIn: authOperations.logIn,
-  onLogOut: authOperations.logOut,
 })(LogInForm);

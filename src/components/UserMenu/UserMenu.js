@@ -1,25 +1,34 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
-import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
+import { NavLink } from 'react-router-dom';
 import styles from './UserMenu.module.css';
 import { connect } from 'react-redux';
 import { authSelectors, authOperations } from '../../redux/auth';
 
 const UserMenu = ({ avatar, userName, onLogOut }) => {
   return (
-    <div>
-      <ScopedCssBaseline className={styles.menu}>
-        <Avatar
-          alt={userName}
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTBCh85bo-3qZSwqbuMGCdzYyQLd4ufSa8aBtp8w4xFaPrr96R2&usqp=CAU"
-        />
-        <h4>Welcome {userName}</h4>
-        <Button variant="contained" color="primary" onClick={onLogOut}>
+    <>
+      <NavLink className={styles.button} to="/">
+        <Button variant="contained" color="primary">
+          Home
+        </Button>
+      </NavLink>
+      <Avatar className={styles.avatar} alt={userName} src={avatar} />
+      <h4 className={styles.name}>
+        Welcome, <br /> {userName}
+      </h4>
+      <NavLink className={styles.button} to="/login">
+        <Button
+          className={styles.button}
+          variant="contained"
+          color="primary"
+          onClick={onLogOut}
+        >
           Log Out
         </Button>
-      </ScopedCssBaseline>
-    </div>
+      </NavLink>
+    </>
   );
 };
 
@@ -29,6 +38,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   onLogOut: authOperations.logOut,
+  avatar:
+    'https://previews.123rf.com/images/nexusby/nexusby1810/nexusby181000286/111362910-default-avatar-placeholder-profile-icon-male.jpg',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);

@@ -1,5 +1,21 @@
 .menu {
   display: flex;
   justify-content: space-between;
-  width: 40%;
+}
+
+.name {
+  text-align: center;
+  color: #fff;
+  margin: 6px;
+  font-size: 14px;
+}
+
+.button {
+  height: 100%;
+  margin: 6px;
+  text-decoration: none;
+}
+
+.avatar {
+  margin: 3px;
 }

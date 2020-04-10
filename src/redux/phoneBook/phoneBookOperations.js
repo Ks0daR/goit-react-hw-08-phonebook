@@ -15,7 +15,7 @@ const addContact = (name, number) => dispatch => {
   dispatch(addContactRequest());
 
   axios
-    .post('/contacts', JSON.stringify({ name, number }))
+    .post('/contacts', { name, number })
     .then(({ data }) => dispatch(addContactSuccess(data)))
     .catch(error => dispatch(addContactError(error)));
 };

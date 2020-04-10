@@ -6,6 +6,11 @@
   justify-content: space-around;
 }
 
+.HeaderDark {
+  composes: Header;
+  background-color: darkblue;
+}
+
 .Title {
   color: #fff;
   text-align: center;
@@ -17,7 +22,7 @@
   color: #aaa;
 }
 .Navigation {
-  align-items: flex-end;
+  display: flex;
 }
 .NaviLink {
   margin-right: 6px;

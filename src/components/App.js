@@ -7,13 +7,16 @@ import PublicRoute from './PublicRoute';
 import { connect } from 'react-redux';
 import { getLoader, getError } from '../redux/phoneBook/phoneBookSelectors';
 import { fetchContacts } from '../redux/phoneBook/phoneBookOperations';
-import { authOperations } from '../redux/auth';
+import { authOperations, authSelectors } from '../redux/auth';
 import PhoneBookPage from '../pages/PhoneBookPage';
 import RegistrationPage from '../pages/RegistrationPage';
 import LogInPage from '../pages/LogInPage';
 
 class App extends Component {
   componentDidMount() {
+    if (!this.props.autorisated) {
+      return;
+    }
     // this.props.getContacts();
     this.props.getCurrentUser();
   }
@@ -46,6 +49,7 @@ class App extends Component {
 const mapStateToProps = state => ({
   loader: getLoader(state),
   error: getError(state),
+  autorisated: authSelectors.getAutorisate(state),
 });
 
 const mapDispatchToProps = {
