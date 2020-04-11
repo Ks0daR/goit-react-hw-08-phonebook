@@ -13,6 +13,7 @@ const removeContactSuccess = createAction('phoneBook/removeContactSuccess');
 const removeContactError = createAction('phoneBook/removeContactError');
 
 const changeFilter = createAction('phoneBook/filtered');
+const clearContactBase = createAction('phoneBook/clearContactBase');
 
 export {
   fetchContactsRequest,
@@ -25,4 +26,5 @@ export {
   removeContactSuccess,
   removeContactError,
   changeFilter,
+  clearContactBase,
 };

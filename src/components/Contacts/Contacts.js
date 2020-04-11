@@ -1,7 +1,7 @@
 import React from 'react';
 import ContactListItem from './ContactListItem';
 import { connect } from 'react-redux';
-import { getTheme } from '../../redux/theme/themeSelectors';
+import { themeSelectors } from '../../redux/theme';
 import { getVisibleContacts } from '../../redux/phoneBook/phoneBookSelectors';
 import { changeFilter } from '../../redux/phoneBook/phoneBookActions';
 import { removeContact } from '../../redux/phoneBook/phoneBookOperations';
@@ -38,7 +38,7 @@ Contacts.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  theme: getTheme(state),
+  theme: themeSelectors.getTheme(state),
   elements: getVisibleContacts(state),
 });
 

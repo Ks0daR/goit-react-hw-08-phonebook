@@ -29,7 +29,13 @@ const removeContact = contactId => dispatch => {
     .catch(error => dispatch(removeContactError(error)));
 };
 
-const fetchContacts = () => dispatch => {
+const fetchContacts = () => (dispatch, getState) => {
+  const {
+    auth: { token: persistedToken },
+  } = getState();
+  if (!persistedToken) {
+    return;
+  }
   dispatch(fetchContactsRequest());
   axios
     .get('/contacts')

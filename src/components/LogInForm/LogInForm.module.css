@@ -1,8 +1,15 @@
-.LabelInput {
-  display: block;
-  width: 100%;
+.inputForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.input {
-  display: block;
-  width: 60%;
+.LabelInput {
+  text-align: center;
+  padding: 10px;
+  width: 30%;
+}
+
+.submit {
+  align-self: center;
 }

@@ -4,7 +4,7 @@
 
 .enterActive {
   transform: scale(1);
-  transition: all 250ms linear 250ms;
+  transition: all 500ms linear 500ms;
 }
 
 .exit {
@@ -13,5 +13,5 @@
 
 .exitActive {
   transform: scale(0.1);
-  transition: all 250ms linear 250ms;
+  transition: all 5000ms linear 500ms;
 }

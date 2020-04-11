@@ -3,7 +3,7 @@ import UserMenu from '../UserMenu';
 import Autorisation from '../Autorisation';
 import Theme from '../Theme';
 import { connect } from 'react-redux';
-import { getTheme } from '../../redux/theme/themeSelectors';
+import { themeSelectors } from '../../redux/theme';
 import { authSelectors } from '../../redux/auth';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
@@ -39,7 +39,7 @@ Header.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  theme: getTheme(state),
+  theme: themeSelectors.getTheme(state),
   isAutorisated: authSelectors.getAutorisate(state),
 });
 

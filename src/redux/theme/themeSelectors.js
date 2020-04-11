@@ -1,3 +1,3 @@
 const getTheme = state => state.theme;
 
-export { getTheme };
+export default { getTheme };

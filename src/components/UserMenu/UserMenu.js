@@ -6,7 +6,7 @@ import styles from './UserMenu.module.css';
 import { connect } from 'react-redux';
 import { authSelectors, authOperations } from '../../redux/auth';
 
-const UserMenu = ({ avatar, userName, onLogOut }) => {
+const UserMenu = ({ avatar, userEmail, onLogOut }) => {
   return (
     <>
       <NavLink className={styles.button} to="/">
@@ -14,9 +14,9 @@ const UserMenu = ({ avatar, userName, onLogOut }) => {
           Home
         </Button>
       </NavLink>
-      <Avatar className={styles.avatar} alt={userName} src={avatar} />
+      <Avatar className={styles.avatar} alt={userEmail} src={avatar} />
       <h4 className={styles.name}>
-        Welcome, <br /> {userName}
+        Welcome, <br /> {userEmail}
       </h4>
       <NavLink className={styles.button} to="/login">
         <Button
@@ -33,7 +33,7 @@ const UserMenu = ({ avatar, userName, onLogOut }) => {
 };
 
 const mapStateToProps = state => ({
-  userName: authSelectors.getUserName(state),
+  userEmail: authSelectors.getUserEmail(state),
 });
 
 const mapDispatchToProps = {

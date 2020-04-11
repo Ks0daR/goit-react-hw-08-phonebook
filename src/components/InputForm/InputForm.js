@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Error from '../Error';
 import { connect } from 'react-redux';
-import { getTheme } from '../../redux/theme/themeSelectors';
+import { themeSelectors } from '../../redux/theme';
 import { getContacts } from '../../redux/phoneBook/phoneBookSelectors';
 import { addContact } from '../../redux/phoneBook/phoneBookOperations';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import styles from './InputForm.module.css';
 import animatedStyles from './animatedStyles.module.css';
+import { TextField, Button } from '@material-ui/core';
 
 class InputForm extends Component {
   static propTypes = {
@@ -51,7 +52,7 @@ class InputForm extends Component {
       <>
         <CSSTransition
           in={error}
-          timeout={500}
+          timeout={1000}
           classNames={animatedStyles}
           onEntered={this.changeValue}
           unmountOnExit
@@ -59,32 +60,35 @@ class InputForm extends Component {
           <Error />
         </CSSTransition>
         <form className={styles.Form} onSubmit={this.hendleSubmit}>
-          <label>
-            <h3 className={theme ? styles.Title : styles.TitleDark}>Name:</h3>
-            <input
-              value={name}
+          <label className={styles.LabelInput}>
+            <TextField
+              label="Name:"
               placeholder="Enter name..."
+              value={name}
               name="name"
               onChange={this.getInputValue}
+              required={true}
             />
-            <h3 className={theme ? styles.title : styles.TitleDark}>
-              Phone number:
-            </h3>
-            <input
+          </label>
+          <label className={styles.LabelInput}>
+            <TextField
+              label="Phone number:"
+              placeholder="Enter name..."
               value={number}
               name="number"
               onChange={this.getInputValue}
-              placeholder="Enter phone..."
+              required={true}
             />
-            <br />
-            <button
-              className={theme ? styles.Submit : styles.SubmitDark}
-              type="submit"
-            >
-              Add contact
-            </button>
-            <br />
           </label>
+          <br />
+          <Button
+            className={styles.submit}
+            type="submit"
+            variant="contained"
+            color="primary"
+          >
+            Add contact
+          </Button>
         </form>
       </>
     );
@@ -92,7 +96,7 @@ class InputForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  theme: getTheme(state),
+  theme: themeSelectors.getTheme(state),
   contacts: getContacts(state),
 });
 const mapDispatchToProps = {

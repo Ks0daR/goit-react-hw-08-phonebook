@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { toggleTheme } from './themeActions';
+import themeActions from './themeActions';
 
 const theme = createReducer(true, {
-  [toggleTheme]: state => !state,
+  [themeActions.toggleTheme]: state => !state,
 });
 
 export default theme;

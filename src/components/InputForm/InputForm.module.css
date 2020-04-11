@@ -1,26 +1,19 @@
 .Form {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  margin-bottom: 30px;
+}
+
+.LabelInput {
   text-align: center;
-  height: auto;
-  line-height: 2;
+  padding: 10px;
+  width: 30%;
 }
 
-.Submit {
-  border: none;
-  background-color: rgb(104, 104, 233);
-  font-size: 20px;
-  padding: 0 8px;
-  margin: 20px;
-  border-radius: 5px;
-  color: aliceblue;
-  cursor: pointer;
-}
-
-.SubmitDark {
-  composes: Submit;
-  background-color: aliceblue;
-  color: rgb(104, 104, 233);
+.submit {
+  align-self: center;
 }
 
 .Title {

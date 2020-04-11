@@ -53,10 +53,9 @@ const currentUser = () => (dispatch, getState) => {
   const {
     auth: { token: persistedToken },
   } = getState();
-  console.log(getState());
-  // if (!persistedToken) {
-  //   return;
-  // }
+  if (!persistedToken) {
+    return;
+  }
   token.set(persistedToken);
 
   dispatch(authActions.getCurrentUserRequest());

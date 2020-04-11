@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { authOperations } from '../../redux/auth';
 import styles from './LogInForm.module.css';
+import { TextField, Button } from '@material-ui/core';
 
 class LogInForm extends Component {
   state = {
@@ -23,29 +24,37 @@ class LogInForm extends Component {
     const { email, password } = this.state;
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        <form className={styles.inputForm} onSubmit={this.handleSubmit}>
           <label className={styles.LabelInput}>
-            Enter user E-mail:
-            <input
-              className={styles.LabelInput}
-              placeholder="E-mail..."
+            <TextField
+              className={styles.text}
+              label="Enter user E-mail:"
+              variant="filled"
               value={email}
               name="email"
               onChange={this.handleChangeInputValue}
-            ></input>
+              required={true}
+            />
           </label>
           <label className={styles.LabelInput}>
-            Enter user password:
-            <input
+            <TextField
+              label="Enter user password:"
+              variant="filled"
               type="password"
-              className={styles.LabelInput}
-              placeholder="password..."
               name="password"
               value={password}
               onChange={this.handleChangeInputValue}
-            ></input>
+              required={true}
+            />
           </label>
-          <button type="submit">Log In</button>
+          <Button
+            className={styles.submit}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Log in
+          </Button>
         </form>
       </>
     );

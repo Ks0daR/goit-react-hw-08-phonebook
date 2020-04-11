@@ -14,11 +14,8 @@ import LogInPage from '../pages/LogInPage';
 
 class App extends Component {
   componentDidMount() {
-    if (!this.props.autorisated) {
-      return;
-    }
-    // this.props.getContacts();
     this.props.getCurrentUser();
+    this.props.getContacts();
   }
   render() {
     const errorMessage = Object.keys(this.props.error).length;
