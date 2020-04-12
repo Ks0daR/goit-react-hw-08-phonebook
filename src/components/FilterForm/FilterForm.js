@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getContacts,
-  getFilter,
-} from '../../redux/phoneBook/phoneBookSelectors';
-import { changeFilter } from '../../redux/phoneBook/phoneBookActions';
+import { phoneBookSelectors, phoneBookActions } from '../../redux/phoneBook';
 import { CSSTransition } from 'react-transition-group';
 import styles from './FilterForm.module.css';
 import animatedStyles from './animatedStyles.module.css';
@@ -37,12 +33,12 @@ FilterForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  filterValue: getFilter(state),
-  contacts: getContacts(state),
+  filterValue: phoneBookSelectors.getFilter(state),
+  contacts: phoneBookSelectors.getContacts(state),
 });
 
 const mapDispatchToProps = {
-  onSearchQuery: changeFilter,
+  onSearchQuery: phoneBookActions.changeFilter,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterForm);

@@ -2,9 +2,11 @@ import React from 'react';
 import ContactListItem from './ContactListItem';
 import { connect } from 'react-redux';
 import { themeSelectors } from '../../redux/theme';
-import { getVisibleContacts } from '../../redux/phoneBook/phoneBookSelectors';
-import { changeFilter } from '../../redux/phoneBook/phoneBookActions';
-import { removeContact } from '../../redux/phoneBook/phoneBookOperations';
+import {
+  phoneBookSelectors,
+  phoneBookActions,
+  phoneBookOperations,
+} from '../../redux/phoneBook';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styles from './Contacts.module.css';
@@ -39,15 +41,15 @@ Contacts.propTypes = {
 
 const mapStateToProps = state => ({
   theme: themeSelectors.getTheme(state),
-  elements: getVisibleContacts(state),
+  elements: phoneBookSelectors.getVisibleContacts(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   onRemove: (id, count) => {
     if (count < 2) {
-      dispatch(changeFilter(''));
+      dispatch(phoneBookActions.changeFilter(''));
     }
-    dispatch(removeContact(id));
+    dispatch(phoneBookOperations.removeContact(id));
   },
 });
 

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import Layout from './Layout';
 import Loader from './Loader';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { connect } from 'react-redux';
-import { getLoader, getError } from '../redux/phoneBook/phoneBookSelectors';
-import { fetchContacts } from '../redux/phoneBook/phoneBookOperations';
+import { phoneBookSelectors, phoneBookOperations } from '../redux/phoneBook';
 import { authOperations, authSelectors } from '../redux/auth';
 import PhoneBookPage from '../pages/PhoneBookPage';
 import RegistrationPage from '../pages/RegistrationPage';
 import LogInPage from '../pages/LogInPage';
+import authSelectiors from '../redux/auth/authSelectiors';
 
 class App extends Component {
   componentDidMount() {
@@ -18,10 +18,11 @@ class App extends Component {
     this.props.getContacts();
   }
   render() {
-    const errorMessage = Object.keys(this.props.error).length;
+    const { error, errorAuth } = this.props;
     return (
       <Layout>
         {this.props.loader && <Loader />}
+        {errorAuth && error && <h1>Oops... Something went wrong </h1>}
         <Switch>
           <PrivateRoute exact path="/" component={PhoneBookPage} />
           <PublicRoute
@@ -44,13 +45,14 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  loader: getLoader(state),
-  error: getError(state),
+  loader: phoneBookSelectors.getLoader(state),
+  error: phoneBookSelectors.getError(state),
+  errorAuth: authSelectiors.getError(state),
   autorisated: authSelectors.getAutorisate(state),
 });
 
 const mapDispatchToProps = {
-  getContacts: fetchContacts,
+  getContacts: phoneBookOperations.fetchContacts,
   getCurrentUser: authOperations.currentUser,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(App);

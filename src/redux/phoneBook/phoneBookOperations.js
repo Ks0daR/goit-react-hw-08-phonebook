@@ -1,32 +1,31 @@
 import axios from 'axios';
-import {
-  fetchContactsRequest,
-  fetchContactsSuccess,
-  fetchContactsError,
-  addContactRequest,
-  addContactSuccess,
-  addContactError,
-  removeContactRequest,
-  removeContactSuccess,
-  removeContactError,
-} from './phoneBookActions';
+import phoneBookActions from './phoneBookActions';
+
+const token = {
+  set(token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    axios.defaults.headers.common.Authorization = ``;
+  },
+};
 
 const addContact = (name, number) => dispatch => {
-  dispatch(addContactRequest());
+  dispatch(phoneBookActions.addContactRequest());
 
   axios
     .post('/contacts', { name, number })
-    .then(({ data }) => dispatch(addContactSuccess(data)))
-    .catch(error => dispatch(addContactError(error)));
+    .then(({ data }) => dispatch(phoneBookActions.addContactSuccess(data)))
+    .catch(error => dispatch(phoneBookActions.addContactError(error)));
 };
 
 const removeContact = contactId => dispatch => {
-  dispatch(removeContactRequest());
+  dispatch(phoneBookActions.removeContactRequest());
 
   axios
     .delete(`/contacts/${contactId}`)
-    .then(() => dispatch(removeContactSuccess(contactId)))
-    .catch(error => dispatch(removeContactError(error)));
+    .then(() => dispatch(phoneBookActions.removeContactSuccess(contactId)))
+    .catch(error => dispatch(phoneBookActions.removeContactError(error)));
 };
 
 const fetchContacts = () => (dispatch, getState) => {
@@ -36,11 +35,12 @@ const fetchContacts = () => (dispatch, getState) => {
   if (!persistedToken) {
     return;
   }
-  dispatch(fetchContactsRequest());
+  token.set(persistedToken);
+  dispatch(phoneBookActions.fetchContactsRequest());
   axios
     .get('/contacts')
-    .then(({ data }) => dispatch(fetchContactsSuccess(data)))
-    .catch(error => dispatch(fetchContactsError(error)));
+    .then(({ data }) => dispatch(phoneBookActions.fetchContactsSuccess(data)))
+    .catch(error => dispatch(phoneBookActions.fetchContactsError(error)));
 };
 
-export { addContact, removeContact, fetchContacts };
+export default { addContact, removeContact, fetchContacts };

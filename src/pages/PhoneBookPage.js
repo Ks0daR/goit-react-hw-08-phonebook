@@ -3,9 +3,11 @@ import InputForm from '../components/InputForm';
 import Contacts from '../components/Contacts';
 import FilterForm from '../components/FilterForm';
 import { connect } from 'react-redux';
-import { clearContactBase } from '../redux/phoneBook/phoneBookActions';
-import { getContacts } from '../redux/phoneBook/phoneBookSelectors';
-import { fetchContacts } from '../redux/phoneBook/phoneBookOperations';
+import {
+  phoneBookActions,
+  phoneBookSelectors,
+  phoneBookOperations,
+} from '../redux/phoneBook';
 
 class PhoneBookPage extends Component {
   componentDidMount() {
@@ -26,12 +28,12 @@ class PhoneBookPage extends Component {
   }
 }
 const manStateToProps = state => ({
-  contacts: getContacts(state),
+  contacts: phoneBookSelectors.getContacts(state),
 });
 
 const mapDispatchToProps = {
-  onFetchContacts: fetchContacts,
-  onClear: clearContactBase,
+  onFetchContacts: phoneBookOperations.fetchContacts,
+  onClear: phoneBookActions.clearContactBase,
 };
 
 export default connect(manStateToProps, mapDispatchToProps)(PhoneBookPage);

@@ -18,7 +18,15 @@ const token = createReducer(null, {
   [authActions.getCurrentUserSuccess]: (state, { payload }) => payload.token,
 });
 
+const errorAuth = createReducer(null, {
+  [authActions.getCurrentUserError]: (state, { payload }) => payload,
+  [authActions.logInError]: (state, { payload }) => payload,
+  [authActions.logOutError]: (state, { payload }) => payload,
+  [authActions.registrationError]: (state, { payload }) => payload,
+});
+
 export default combineReducers({
   user,
   token,
+  errorAuth,
 });

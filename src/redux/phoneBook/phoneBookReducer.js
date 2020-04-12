@@ -1,48 +1,38 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
-import {
-  changeFilter,
-  fetchContactsRequest,
-  fetchContactsSuccess,
-  fetchContactsError,
-  addContactRequest,
-  addContactSuccess,
-  addContactError,
-  removeContactRequest,
-  removeContactSuccess,
-  removeContactError,
-} from './phoneBookActions';
+import phoneBookActions from './phoneBookActions';
 
 const contactsBase = createReducer([], {
-  [fetchContactsSuccess]: (state, { payload }) => payload,
-  [addContactSuccess]: (state, { payload }) => [...state, payload],
-  [removeContactSuccess]: (state, { payload }) =>
+  [phoneBookActions.fetchContactsSuccess]: (state, { payload }) => payload,
+  [phoneBookActions.addContactSuccess]: (state, { payload }) => [
+    ...state,
+    payload,
+  ],
+  [phoneBookActions.removeContactSuccess]: (state, { payload }) =>
     state.filter(element => payload !== element.id),
+  [phoneBookActions.clearContactBase]: (state, { payload }) => [],
 });
 
 const filter = createReducer('', {
-  [changeFilter.type]: (state, { payload }) => payload,
+  [phoneBookActions.changeFilter.type]: (state, { payload }) => payload,
 });
 
 const loader = createReducer(false, {
-  [fetchContactsRequest]: () => true,
-  [fetchContactsSuccess]: () => false,
-  [fetchContactsError]: () => false,
-  [addContactRequest]: () => true,
-  [addContactSuccess]: () => false,
-  [addContactError]: () => false,
-  [removeContactRequest]: () => true,
-  [removeContactSuccess]: () => false,
-  [removeContactError]: () => false,
+  [phoneBookActions.fetchContactsRequest]: () => true,
+  [phoneBookActions.fetchContactsSuccess]: () => false,
+  [phoneBookActions.fetchContactsError]: () => false,
+  [phoneBookActions.addContactRequest]: () => true,
+  [phoneBookActions.addContactSuccess]: () => false,
+  [phoneBookActions.addContactError]: () => false,
+  [phoneBookActions.removeContactRequest]: () => true,
+  [phoneBookActions.removeContactSuccess]: () => false,
+  [phoneBookActions.removeContactError]: () => false,
 });
 
-const error = createReducer(
-  {},
-  {
-    [fetchContactsError]: (state, { payload }) => payload,
-    [addContactError]: (state, { payload }) => payload,
-    [removeContactError]: (state, { payload }) => payload,
-  },
-);
+const error = createReducer(null, {
+  [phoneBookActions.fetchContactsError]: (state, { payload }) => payload,
+  [phoneBookActions.addContactError]: (state, { payload }) => payload,
+  [phoneBookActions.removeContactError]: (state, { payload }) => payload,
+});
 
 export default combineReducers({ contactsBase, filter, loader, error });

@@ -15,7 +15,7 @@ const removeContactError = createAction('phoneBook/removeContactError');
 const changeFilter = createAction('phoneBook/filtered');
 const clearContactBase = createAction('phoneBook/clearContactBase');
 
-export {
+export default {
   fetchContactsRequest,
   fetchContactsSuccess,
   fetchContactsError,

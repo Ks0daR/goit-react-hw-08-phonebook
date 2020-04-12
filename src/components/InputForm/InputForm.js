@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Error from '../Error';
 import { connect } from 'react-redux';
 import { themeSelectors } from '../../redux/theme';
-import { getContacts } from '../../redux/phoneBook/phoneBookSelectors';
-import { addContact } from '../../redux/phoneBook/phoneBookOperations';
+import { phoneBookSelectors, phoneBookOperations } from '../../redux/phoneBook';
 import PropTypes from 'prop-types';
 import { CSSTransition } from 'react-transition-group';
 import styles from './InputForm.module.css';
@@ -46,7 +45,6 @@ class InputForm extends Component {
 
   render() {
     const { name, number, error } = this.state;
-    const { theme } = this.props;
 
     return (
       <>
@@ -97,10 +95,10 @@ class InputForm extends Component {
 
 const mapStateToProps = state => ({
   theme: themeSelectors.getTheme(state),
-  contacts: getContacts(state),
+  contacts: phoneBookSelectors.getContacts(state),
 });
 const mapDispatchToProps = {
-  getInfo: addContact,
+  getInfo: phoneBookOperations.addContact,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputForm);
