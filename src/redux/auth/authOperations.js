@@ -32,6 +32,7 @@ const logIn = userAccount => dispatch => {
     .post('/auth/login', userAccount)
     .then(({ data }) => {
       token.set(data.token);
+      console.log(data);
       dispatch(authActions.logInSuccess(data));
     })
     .catch(error => dispatch(authActions.logInError(error)));
@@ -46,6 +47,7 @@ const logOut = () => dispatch => {
     .then(response => {
       token.unset();
       localStorage.clear();
+      console.log(localStorage);
 
       dispatch(authActions.logOutSuccess());
     })
