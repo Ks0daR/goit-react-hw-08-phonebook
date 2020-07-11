@@ -1,7 +1,7 @@
 import authActions from './authActions';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://phonecontactbase.herokuapp.com';
+axios.defaults.baseURL = 'https://phonecontactbase.herokuapp.com/';
 
 const token = {
   set(token) {
@@ -41,10 +41,12 @@ const logOut = () => dispatch => {
   dispatch(authActions.logOutRequest());
 
   axios
-    .post('/auth/logout')
+
+    .patch('/auth/logout')
     .then(response => {
       token.unset();
       localStorage.clear();
+
       dispatch(authActions.logOutSuccess());
     })
     .catch(error => dispatch(authActions.logOutError));

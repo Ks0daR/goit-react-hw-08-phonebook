@@ -14,7 +14,7 @@ const addContact = (name, number) => dispatch => {
   dispatch(phoneBookActions.addContactRequest());
 
   axios
-    .post('/contacts', { name, number })
+    .post('/api/contacts', { name, number })
     .then(({ data }) => dispatch(phoneBookActions.addContactSuccess(data)))
     .catch(error => dispatch(phoneBookActions.addContactError(error)));
 };
@@ -23,7 +23,7 @@ const removeContact = contactId => dispatch => {
   dispatch(phoneBookActions.removeContactRequest());
 
   axios
-    .delete(`/contacts/${contactId}`)
+    .delete(`/api/contacts/${contactId}`)
     .then(() => dispatch(phoneBookActions.removeContactSuccess(contactId)))
     .catch(error => dispatch(phoneBookActions.removeContactError(error)));
 };
@@ -38,7 +38,7 @@ const fetchContacts = () => (dispatch, getState) => {
   token.set(persistedToken);
   dispatch(phoneBookActions.fetchContactsRequest());
   axios
-    .get('/contacts')
+    .get('/api/contacts')
     .then(({ data }) => dispatch(phoneBookActions.fetchContactsSuccess(data)))
     .catch(error => dispatch(phoneBookActions.fetchContactsError(error)));
 };

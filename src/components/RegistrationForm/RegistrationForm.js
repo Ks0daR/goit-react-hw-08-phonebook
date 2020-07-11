@@ -6,7 +6,8 @@ import { TextField, Button } from '@material-ui/core';
 
 class RegistrationForm extends Component {
   state = {
-    file: '',
+    avatar: '',
+
     email: '',
     password: '',
   };
@@ -15,13 +16,18 @@ class RegistrationForm extends Component {
     this.setState({ [name]: value });
   };
 
-  handleChangeFile = e => {
-    console.log(e.target.file);
+  handleAddFile = ({ target: { files } }) => {
+    this.setState({ avatar: files[0] });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onRegister(this.state);
+    const { avatar, email, password } = this.state;
+    const userInfo = new FormData();
+    userInfo.append('avatar', avatar);
+    userInfo.append('email', email);
+    userInfo.append('password', password);
+    this.props.onRegister(userInfo);
     this.setState({ name: '', email: '', password: '' });
   };
 
@@ -31,10 +37,9 @@ class RegistrationForm extends Component {
       <form className={styles.inputForm} onSubmit={this.handleSubmit}>
         <label className={styles.LabelInput}>
           <TextField
-            label="FilEEEE"
             variant="filled"
             type="file"
-            onSubmit={this.handleChangeFile}
+            onChange={this.handleAddFile}
             required={true}
           />
         </label>
