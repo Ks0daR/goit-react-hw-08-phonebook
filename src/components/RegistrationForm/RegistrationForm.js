@@ -6,13 +6,17 @@ import { TextField, Button } from '@material-ui/core';
 
 class RegistrationForm extends Component {
   state = {
-    name: '',
+    file: '',
     email: '',
     password: '',
   };
 
   handleChangeInputValue = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
+  };
+
+  handleChangeFile = e => {
+    console.log(e.target.file);
   };
 
   handleSubmit = e => {
@@ -22,16 +26,15 @@ class RegistrationForm extends Component {
   };
 
   render() {
-    const { email, name, password } = this.state;
+    const { email, password } = this.state;
     return (
       <form className={styles.inputForm} onSubmit={this.handleSubmit}>
         <label className={styles.LabelInput}>
           <TextField
-            label="Enter user login:"
+            label="FilEEEE"
             variant="filled"
-            value={name}
-            name="name"
-            onChange={this.handleChangeInputValue}
+            type="file"
+            onSubmit={this.handleChangeFile}
             required={true}
           />
         </label>

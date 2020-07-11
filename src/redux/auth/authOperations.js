@@ -1,7 +1,7 @@
 import authActions from './authActions';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com/';
+axios.defaults.baseURL = 'https://phonecontactbase.herokuapp.com';
 
 const token = {
   set(token) {
@@ -17,7 +17,7 @@ const registration = userAccount => dispatch => {
   console.log(userAccount);
 
   axios
-    .post('/users/signup', userAccount)
+    .post('/auth/register', userAccount)
     .then(({ data }) => {
       token.set(data.token);
       dispatch(authActions.registrationSuccess(data));
@@ -29,7 +29,7 @@ const logIn = userAccount => dispatch => {
   dispatch(authActions.logInRequest());
 
   axios
-    .post('/users/login', userAccount)
+    .post('/auth/login', userAccount)
     .then(({ data }) => {
       token.set(data.token);
       dispatch(authActions.logInSuccess(data));
@@ -41,9 +41,10 @@ const logOut = () => dispatch => {
   dispatch(authActions.logOutRequest());
 
   axios
-    .post('/users/logout')
+    .post('/auth/logout')
     .then(response => {
       token.unset();
+      localStorage.clear();
       dispatch(authActions.logOutSuccess());
     })
     .catch(error => dispatch(authActions.logOutError));
@@ -60,7 +61,7 @@ const currentUser = () => (dispatch, getState) => {
 
   dispatch(authActions.getCurrentUserRequest());
   axios
-    .get('/users/current')
+    .get('/auth/users/current')
     .then(({ data }) => dispatch(authActions.getCurrentUserSuccess(data)))
     .catch(error => dispatch(authActions.getCurrentUserError(error)));
 };
