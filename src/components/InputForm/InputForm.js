@@ -17,7 +17,8 @@ class InputForm extends Component {
 
   state = {
     name: '',
-    number: '',
+    email: '',
+    phone: '',
     error: false,
   };
 
@@ -26,13 +27,14 @@ class InputForm extends Component {
   };
 
   hendleSubmit = e => {
+    const { name, email, phone } = this.state;
     e.preventDefault();
-    if (this.checkedDoubleInput(this.state.name)) {
+    if (this.checkedDoubleInput(name)) {
       this.setState({ error: true });
       return;
     }
-    this.props.getInfo(this.state.name, this.state.number);
-    this.setState({ name: '', number: '', error: false });
+    this.props.getInfo({ name, email, phone });
+    this.setState({ name: '', phone: '', email: '', error: false });
   };
 
   checkedDoubleInput = name => {
@@ -44,7 +46,7 @@ class InputForm extends Component {
   };
 
   render() {
-    const { name, number, error } = this.state;
+    const { name, phone, email, error } = this.state;
 
     return (
       <>
@@ -70,15 +72,24 @@ class InputForm extends Component {
           </label>
           <label className={styles.LabelInput}>
             <TextField
-              label="Phone number:"
-              placeholder="Enter name..."
-              value={number}
-              name="number"
+              label="Email:"
+              placeholder="Enter email..."
+              value={email}
+              name="email"
               onChange={this.getInputValue}
               required={true}
             />
           </label>
-          <br />
+          <label className={styles.LabelInput}>
+            <TextField
+              label="Phone number:"
+              placeholder="Enter phone..."
+              value={phone}
+              name="phone"
+              onChange={this.getInputValue}
+              required={true}
+            />
+          </label>
           <Button
             className={styles.submit}
             type="submit"
