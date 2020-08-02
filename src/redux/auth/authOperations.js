@@ -14,7 +14,6 @@ const token = {
 
 const registration = userAccount => dispatch => {
   dispatch(authActions.registrationRequest());
-  console.log(userAccount);
 
   axios
     .post('/auth/register', userAccount)
@@ -22,7 +21,7 @@ const registration = userAccount => dispatch => {
       token.set(data.token);
       dispatch(authActions.registrationSuccess(data));
     })
-    .catch(error => dispatch(authActions.registrationError(error)));
+    .catch(({ message }) => dispatch(authActions.registrationError(message)));
 };
 
 const logIn = userAccount => dispatch => {
@@ -32,10 +31,10 @@ const logIn = userAccount => dispatch => {
     .post('/auth/login', userAccount)
     .then(({ data }) => {
       token.set(data.token);
-      console.log(data);
+
       dispatch(authActions.logInSuccess(data));
     })
-    .catch(error => dispatch(authActions.logInError(error)));
+    .catch(({ message }) => dispatch(authActions.logInError(message)));
 };
 
 const logOut = () => dispatch => {
@@ -47,11 +46,10 @@ const logOut = () => dispatch => {
     .then(response => {
       token.unset();
       localStorage.clear();
-      console.log(localStorage);
 
       dispatch(authActions.logOutSuccess());
     })
-    .catch(error => dispatch(authActions.logOutError));
+    .catch(({ message }) => dispatch(authActions.logOutError(message)));
 };
 
 const currentUser = () => (dispatch, getState) => {
@@ -67,6 +65,6 @@ const currentUser = () => (dispatch, getState) => {
   axios
     .get('/auth/users/current')
     .then(({ data }) => dispatch(authActions.getCurrentUserSuccess(data)))
-    .catch(error => dispatch(authActions.getCurrentUserError(error)));
+    .catch(({ message }) => dispatch(authActions.getCurrentUserError(message)));
 };
 export default { registration, logIn, logOut, currentUser };

@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { authSelectors, authOperations } from '../../redux/auth';
 
 const UserMenu = ({ avatar, email, onLogOut }) => {
-  console.log(avatar);
   return (
     <>
       <NavLink className={styles.button} to="/">

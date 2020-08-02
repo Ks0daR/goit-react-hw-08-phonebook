@@ -16,6 +16,7 @@ const token = createReducer(null, {
   [authActions.logInSuccess]: (state, { payload }) => payload.token,
   [authActions.logOutSuccess]: (state, { payload }) => null,
   [authActions.getCurrentUserSuccess]: (state, { payload }) => payload.token,
+  [authActions.getCurrentUserError]: (state, { payload }) => null,
 });
 
 const errorAuth = createReducer(null, {

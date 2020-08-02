@@ -32,7 +32,7 @@ class RegistrationForm extends Component {
 
   render() {
     const { email, password, avatar } = this.state;
-    console.log(avatar);
+
     return (
       <form className={styles.inputForm} onSubmit={this.handleSubmit}>
         <label className={styles.LabelInput}>

@@ -46,6 +46,7 @@ class InputForm extends Component {
       if (contactName || contactEmail) {
         return true;
       }
+      return false;
     });
   };
 
