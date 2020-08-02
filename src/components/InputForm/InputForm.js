@@ -30,7 +30,7 @@ class InputForm extends Component {
     e.preventDefault();
 
     const { name, phone, email } = this.state;
-    if (this.checkedDoubleInput(name)) {
+    if (this.checkedDoubleInput(name, email)) {
       this.setState({ error: true });
       return;
     }
@@ -38,8 +38,15 @@ class InputForm extends Component {
     this.setState({ name: '', phone: '', email: '', error: false });
   };
 
-  checkedDoubleInput = name => {
-    return this.props.contacts.some(contact => contact.name === name);
+  checkedDoubleInput = (name, email) => {
+    return this.props.contacts.some(contact => {
+      const contactName = contact.name === name;
+      const contactEmail = contact.email === email;
+
+      if (contactName || contactEmail) {
+        return true;
+      }
+    });
   };
 
   changeValue = () => {

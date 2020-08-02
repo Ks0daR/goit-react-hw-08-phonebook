@@ -9,7 +9,7 @@ const contactsBase = createReducer([], {
     payload,
   ],
   [phoneBookActions.removeContactSuccess]: (state, { payload }) =>
-    state.filter(element => payload !== element.id),
+    state.filter(element => element._id !== payload),
   [phoneBookActions.clearContactBase]: (state, { payload }) => [],
 });
 
