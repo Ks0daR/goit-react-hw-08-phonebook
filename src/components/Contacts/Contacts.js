@@ -18,13 +18,18 @@ const Contacts = ({ elements, theme, onRemove }) => {
       <h2 className={theme ? styles.Title : styles.TitleDark}>Contacts</h2>
       <TransitionGroup component="ul" className={styles.list}>
         {elements.length > 0
-          ? elements.map(({ id, name, number }) => (
-              <CSSTransition key={id} timeout={250} classNames={animatedStyles}>
+          ? elements.map(({ _id, name, phone, email }) => (
+              <CSSTransition
+                key={_id}
+                timeout={250}
+                classNames={animatedStyles}
+              >
                 <ContactListItem
-                  id={id}
+                  id={_id}
                   name={name}
-                  number={number}
-                  onRemove={() => onRemove(id, elements.length)}
+                  phone={phone}
+                  email={email}
+                  onRemove={() => onRemove(_id, elements.length)}
                   theme={theme}
                 />
               </CSSTransition>

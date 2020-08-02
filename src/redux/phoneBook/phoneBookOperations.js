@@ -10,13 +10,15 @@ const token = {
   },
 };
 
-const addContact = (name, number) => dispatch => {
+const addContact = userContact => dispatch => {
   dispatch(phoneBookActions.addContactRequest());
 
   axios
-    .post('/api/contacts', { name, number })
+    .post('/api/contacts', userContact)
     .then(({ data }) => dispatch(phoneBookActions.addContactSuccess(data)))
-    .catch(error => dispatch(phoneBookActions.addContactError(error)));
+    .catch(({ message }) =>
+      dispatch(phoneBookActions.addContactError(message)),
+    );
 };
 
 const removeContact = contactId => dispatch => {
@@ -25,7 +27,9 @@ const removeContact = contactId => dispatch => {
   axios
     .delete(`/api/contacts/${contactId}`)
     .then(() => dispatch(phoneBookActions.removeContactSuccess(contactId)))
-    .catch(error => dispatch(phoneBookActions.removeContactError(error)));
+    .catch(({ message }) =>
+      dispatch(phoneBookActions.removeContactError(message)),
+    );
 };
 
 const fetchContacts = () => (dispatch, getState) => {
@@ -40,7 +44,9 @@ const fetchContacts = () => (dispatch, getState) => {
   axios
     .get('/api/contacts')
     .then(({ data }) => dispatch(phoneBookActions.fetchContactsSuccess(data)))
-    .catch(error => dispatch(phoneBookActions.fetchContactsError(error)));
+    .catch(({ message }) =>
+      dispatch(phoneBookActions.fetchContactsError(message)),
+    );
 };
 
 export default { addContact, removeContact, fetchContacts };

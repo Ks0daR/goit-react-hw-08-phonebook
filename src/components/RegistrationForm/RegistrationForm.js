@@ -7,7 +7,6 @@ import { TextField, Button } from '@material-ui/core';
 class RegistrationForm extends Component {
   state = {
     avatar: '',
-
     email: '',
     password: '',
   };
@@ -28,11 +27,12 @@ class RegistrationForm extends Component {
     userInfo.append('email', email);
     userInfo.append('password', password);
     this.props.onRegister(userInfo);
-    this.setState({ name: '', email: '', password: '' });
+    this.setState({ avatar: '', email: '', password: '' });
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, avatar } = this.state;
+    console.log(avatar);
     return (
       <form className={styles.inputForm} onSubmit={this.handleSubmit}>
         <label className={styles.LabelInput}>
