@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { authOperations } from '../../redux/auth';
 import styles from './RegistrationForm.module.css';
-import { TextField, Button } from '@material-ui/core';
+// import { TextField, Button } from '@material-ui/core';
+import '../../../node_modules/materialize-css/dist/css/materialize.min.css';
 
 class RegistrationForm extends Component {
   state = {
@@ -34,8 +35,52 @@ class RegistrationForm extends Component {
     const { email, password, avatar } = this.state;
 
     return (
-      <form className={styles.inputForm} onSubmit={this.handleSubmit}>
-        <label className={styles.LabelInput}>
+      <div className="row">
+        <form className={styles.inputForm} onSubmit={this.handleSubmit}>
+          <div className="row ">
+            <div className=" file-field input col s12">
+              <div className="btn">
+                <span>File</span>
+                <input type="file" onChange={this.handleAddFile} />
+              </div>
+              <div className="file-path-wrapper">
+                <input
+                  className="file-path validate"
+                  type="text"
+                  readOnly={true}
+                  value={avatar.name ? avatar.name : ''}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col s12">
+              <input
+                name="email"
+                type="email"
+                placeholder="E-mail"
+                value={email}
+                className="validate"
+                onChange={this.handleChangeInputValue}
+              />
+              <label htmlFor="email">Email</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col s12">
+              <input
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={password}
+                className="validate"
+                onChange={this.handleChangeInputValue}
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+          </div>
+
+          {/* <label className={styles.LabelInput}>
           <TextField
             variant="filled"
             type="file"
@@ -71,8 +116,18 @@ class RegistrationForm extends Component {
           type="submit"
         >
           Register
-        </Button>
-      </form>
+        </Button> */}
+
+          <button
+            className="btn waves-effect waves-light"
+            type="submit"
+            name="action"
+          >
+            Submit
+            <i className="material-icons right">send</i>
+          </button>
+        </form>
+      </div>
     );
   }
 }
